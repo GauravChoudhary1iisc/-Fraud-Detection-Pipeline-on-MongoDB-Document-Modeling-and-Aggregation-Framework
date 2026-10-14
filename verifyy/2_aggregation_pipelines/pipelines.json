@@ -1,0 +1,404 @@
+{
+  "amount_bin_fraud_rate": [
+    {
+      "$bucket": {
+        "groupBy": "$Amount",
+        "boundaries": [
+          0,
+          1,
+          10,
+          50,
+          100,
+          250,
+          500,
+          1000,
+          2500,
+          5000
+        ],
+        "default": "5000+",
+        "output": {
+          "n": {
+            "$sum": 1
+          },
+          "frauds": {
+            "$sum": "$Class"
+          },
+          "avg_amount": {
+            "$avg": "$Amount"
+          }
+        }
+      }
+    },
+    {
+      "$addFields": {
+        "fraud_rate": {
+          "$divide": [
+            "$frauds",
+            "$n"
+          ]
+        }
+      }
+    }
+  ],
+  "hourly_window_counts": [
+    {
+      "$group": {
+        "_id": {
+          "$floor": {
+            "$divide": [
+              "$Time",
+              3600
+            ]
+          }
+        },
+        "n": {
+          "$sum": 1
+        },
+        "frauds": {
+          "$sum": "$Class"
+        },
+        "total_amount": {
+          "$sum": "$Amount"
+        }
+      }
+    },
+    {
+      "$setWindowFields": {
+        "sortBy": {
+          "_id": 1
+        },
+        "output": {
+          "rolling_3h_n": {
+            "$sum": "$n",
+            "window": {
+              "documents": [
+                -2,
+                0
+              ]
+            }
+          },
+          "rolling_3h_frauds": {
+            "$sum": "$frauds",
+            "window": {
+              "documents": [
+                -2,
+                0
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "hour_index": "$_id",
+        "hour_of_day": {
+          "$mod": [
+            "$_id",
+            24
+          ]
+        },
+        "n": 1,
+        "frauds": 1,
+        "total_amount": {
+          "$round": [
+            "$total_amount",
+            2
+          ]
+        },
+        "rolling_3h_n": 1,
+        "rolling_3h_frauds": 1
+      }
+    }
+  ],
+  "class_feature_stats": [
+    {
+      "$group": {
+        "_id": "$Class",
+        "n": {
+          "$sum": 1
+        },
+        "Amount_mean": {
+          "$avg": "$Amount"
+        },
+        "Amount_std": {
+          "$stdDevSamp": "$Amount"
+        },
+        "V1_mean": {
+          "$avg": "$V1"
+        },
+        "V1_std": {
+          "$stdDevSamp": "$V1"
+        },
+        "V2_mean": {
+          "$avg": "$V2"
+        },
+        "V2_std": {
+          "$stdDevSamp": "$V2"
+        },
+        "V3_mean": {
+          "$avg": "$V3"
+        },
+        "V3_std": {
+          "$stdDevSamp": "$V3"
+        },
+        "V4_mean": {
+          "$avg": "$V4"
+        },
+        "V4_std": {
+          "$stdDevSamp": "$V4"
+        },
+        "V5_mean": {
+          "$avg": "$V5"
+        },
+        "V5_std": {
+          "$stdDevSamp": "$V5"
+        },
+        "V6_mean": {
+          "$avg": "$V6"
+        },
+        "V6_std": {
+          "$stdDevSamp": "$V6"
+        },
+        "V7_mean": {
+          "$avg": "$V7"
+        },
+        "V7_std": {
+          "$stdDevSamp": "$V7"
+        },
+        "V8_mean": {
+          "$avg": "$V8"
+        },
+        "V8_std": {
+          "$stdDevSamp": "$V8"
+        },
+        "V9_mean": {
+          "$avg": "$V9"
+        },
+        "V9_std": {
+          "$stdDevSamp": "$V9"
+        },
+        "V10_mean": {
+          "$avg": "$V10"
+        },
+        "V10_std": {
+          "$stdDevSamp": "$V10"
+        },
+        "V11_mean": {
+          "$avg": "$V11"
+        },
+        "V11_std": {
+          "$stdDevSamp": "$V11"
+        },
+        "V12_mean": {
+          "$avg": "$V12"
+        },
+        "V12_std": {
+          "$stdDevSamp": "$V12"
+        },
+        "V13_mean": {
+          "$avg": "$V13"
+        },
+        "V13_std": {
+          "$stdDevSamp": "$V13"
+        },
+        "V14_mean": {
+          "$avg": "$V14"
+        },
+        "V14_std": {
+          "$stdDevSamp": "$V14"
+        },
+        "V15_mean": {
+          "$avg": "$V15"
+        },
+        "V15_std": {
+          "$stdDevSamp": "$V15"
+        },
+        "V16_mean": {
+          "$avg": "$V16"
+        },
+        "V16_std": {
+          "$stdDevSamp": "$V16"
+        },
+        "V17_mean": {
+          "$avg": "$V17"
+        },
+        "V17_std": {
+          "$stdDevSamp": "$V17"
+        },
+        "V18_mean": {
+          "$avg": "$V18"
+        },
+        "V18_std": {
+          "$stdDevSamp": "$V18"
+        },
+        "V19_mean": {
+          "$avg": "$V19"
+        },
+        "V19_std": {
+          "$stdDevSamp": "$V19"
+        },
+        "V20_mean": {
+          "$avg": "$V20"
+        },
+        "V20_std": {
+          "$stdDevSamp": "$V20"
+        },
+        "V21_mean": {
+          "$avg": "$V21"
+        },
+        "V21_std": {
+          "$stdDevSamp": "$V21"
+        },
+        "V22_mean": {
+          "$avg": "$V22"
+        },
+        "V22_std": {
+          "$stdDevSamp": "$V22"
+        },
+        "V23_mean": {
+          "$avg": "$V23"
+        },
+        "V23_std": {
+          "$stdDevSamp": "$V23"
+        },
+        "V24_mean": {
+          "$avg": "$V24"
+        },
+        "V24_std": {
+          "$stdDevSamp": "$V24"
+        },
+        "V25_mean": {
+          "$avg": "$V25"
+        },
+        "V25_std": {
+          "$stdDevSamp": "$V25"
+        },
+        "V26_mean": {
+          "$avg": "$V26"
+        },
+        "V26_std": {
+          "$stdDevSamp": "$V26"
+        },
+        "V27_mean": {
+          "$avg": "$V27"
+        },
+        "V27_std": {
+          "$stdDevSamp": "$V27"
+        },
+        "V28_mean": {
+          "$avg": "$V28"
+        },
+        "V28_std": {
+          "$stdDevSamp": "$V28"
+        }
+      }
+    },
+    {
+      "$sort": {
+        "_id": 1
+      }
+    }
+  ],
+  "per_transaction_features": [
+    {
+      "$setWindowFields": {
+        "sortBy": {
+          "Time": 1
+        },
+        "output": {
+          "tx_count_prev_1h": {
+            "$count": {},
+            "window": {
+              "range": [
+                -3600,
+                0
+              ]
+            }
+          },
+          "tx_count_prev_10m": {
+            "$count": {},
+            "window": {
+              "range": [
+                -600,
+                0
+              ]
+            }
+          },
+          "amount_mean_prev_1h": {
+            "$avg": "$Amount",
+            "window": {
+              "range": [
+                -3600,
+                0
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "$addFields": {
+        "hour_of_day": {
+          "$mod": [
+            {
+              "$floor": {
+                "$divide": [
+                  "$Time",
+                  3600
+                ]
+              }
+            },
+            24
+          ]
+        },
+        "log_amount": {
+          "$ln": {
+            "$add": [
+              "$Amount",
+              1
+            ]
+          }
+        },
+        "amount_vs_1h_mean": {
+          "$divide": [
+            "$Amount",
+            {
+              "$max": [
+                "$amount_mean_prev_1h",
+                0.01
+              ]
+            }
+          ]
+        },
+        "amount_bin": {
+          "$size": {
+            "$filter": {
+              "input": [
+                1,
+                10,
+                50,
+                100,
+                250,
+                500,
+                1000,
+                2500,
+                5000
+              ],
+              "cond": {
+                "$gte": [
+                  "$Amount",
+                  "$$this"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$out": "features"
+    }
+  ]
+}

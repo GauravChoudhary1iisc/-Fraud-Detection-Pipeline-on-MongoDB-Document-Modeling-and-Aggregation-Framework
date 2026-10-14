@@ -1,0 +1,130 @@
+{
+  "cross_checks": {
+    "Amount_mean": true,
+    "Amount_std": true,
+    "V1_mean": true,
+    "V1_std": true,
+    "V14_mean": true,
+    "V14_std": true,
+    "hourly_counts": true,
+    "rolling_1h_count": true
+  },
+  "engineered_features": [
+    "tx_count_prev_1h",
+    "tx_count_prev_10m",
+    "amount_mean_prev_1h",
+    "hour_of_day",
+    "log_amount",
+    "amount_vs_1h_mean",
+    "amount_bin"
+  ],
+  "mongo_raw": {
+    "DecisionTree": {
+      "precision": 0.7526,
+      "recall": 0.7449,
+      "f1": 0.7487,
+      "confusion_matrix": [
+        [
+          56840,
+          24
+        ],
+        [
+          25,
+          73
+        ]
+      ]
+    },
+    "RandomForest": {
+      "precision": 0.9412,
+      "recall": 0.8163,
+      "f1": 0.8743,
+      "confusion_matrix": [
+        [
+          56859,
+          5
+        ],
+        [
+          18,
+          80
+        ]
+      ]
+    }
+  },
+  "mongo_engineered": {
+    "DecisionTree": {
+      "precision": 0.6881,
+      "recall": 0.7653,
+      "f1": 0.7246,
+      "confusion_matrix": [
+        [
+          56830,
+          34
+        ],
+        [
+          23,
+          75
+        ]
+      ]
+    },
+    "RandomForest": {
+      "precision": 0.9398,
+      "recall": 0.7959,
+      "f1": 0.8619,
+      "confusion_matrix": [
+        [
+          56859,
+          5
+        ],
+        [
+          20,
+          78
+        ]
+      ]
+    }
+  },
+  "pandas_baseline": {
+    "DecisionTree": {
+      "precision": 0.7526,
+      "recall": 0.7449,
+      "f1": 0.7487,
+      "confusion_matrix": [
+        [
+          56840,
+          24
+        ],
+        [
+          25,
+          73
+        ]
+      ]
+    },
+    "RandomForest": {
+      "precision": 0.9412,
+      "recall": 0.8163,
+      "f1": 0.8743,
+      "confusion_matrix": [
+        [
+          56859,
+          5
+        ],
+        [
+          18,
+          80
+        ]
+      ]
+    }
+  },
+  "original": {
+    "DecisionTree": {
+      "precision": 0.83,
+      "recall": 0.81,
+      "f1": 0.82
+    },
+    "RandomForest": {
+      "precision": 0.95,
+      "recall": 0.76,
+      "f1": 0.85
+    }
+  },
+  "raw_predictions_identical_to_baseline": true
+}

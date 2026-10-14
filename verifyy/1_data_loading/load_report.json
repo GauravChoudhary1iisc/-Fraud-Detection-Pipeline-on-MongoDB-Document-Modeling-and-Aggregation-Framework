@@ -1,0 +1,185 @@
+{
+  "csv_rows": 284807,
+  "mongo_docs": 284807,
+  "fraud_docs": 492,
+  "roundtrip_identical_to_csv": true,
+  "data_size_bytes": 116770870,
+  "avg_doc_size_bytes": 410,
+  "sample_document": {
+    "_id": 541,
+    "Time": 406.0,
+    "V1": -2.3122265423263,
+    "V2": 1.95199201064158,
+    "V3": -1.60985073229769,
+    "V4": 3.9979055875468,
+    "V5": -0.522187864667764,
+    "V6": -1.42654531920595,
+    "V7": -2.53738730624579,
+    "V8": 1.39165724829804,
+    "V9": -2.77008927719433,
+    "V10": -2.77227214465915,
+    "V11": 3.20203320709635,
+    "V12": -2.89990738849473,
+    "V13": -0.595221881324605,
+    "V14": -4.28925378244217,
+    "V15": 0.389724120274487,
+    "V16": -1.14074717980657,
+    "V17": -2.83005567450437,
+    "V18": -0.0168224681808257,
+    "V19": 0.416955705037907,
+    "V20": 0.126910559061474,
+    "V21": 0.517232370861764,
+    "V22": -0.0350493686052974,
+    "V23": -0.465211076182388,
+    "V24": 0.320198198514526,
+    "V25": 0.0445191674731724,
+    "V26": 0.177839798284401,
+    "V27": 0.261145002567677,
+    "V28": -0.143275874698919,
+    "Amount": 0.0,
+    "Class": 1
+  },
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "_id",
+        "Time",
+        "Amount",
+        "Class",
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7",
+        "V8",
+        "V9",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28"
+      ],
+      "properties": {
+        "_id": {
+          "bsonType": "int"
+        },
+        "Time": {
+          "bsonType": "double",
+          "minimum": 0
+        },
+        "Amount": {
+          "bsonType": "double",
+          "minimum": 0
+        },
+        "Class": {
+          "bsonType": "int",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "V1": {
+          "bsonType": "double"
+        },
+        "V2": {
+          "bsonType": "double"
+        },
+        "V3": {
+          "bsonType": "double"
+        },
+        "V4": {
+          "bsonType": "double"
+        },
+        "V5": {
+          "bsonType": "double"
+        },
+        "V6": {
+          "bsonType": "double"
+        },
+        "V7": {
+          "bsonType": "double"
+        },
+        "V8": {
+          "bsonType": "double"
+        },
+        "V9": {
+          "bsonType": "double"
+        },
+        "V10": {
+          "bsonType": "double"
+        },
+        "V11": {
+          "bsonType": "double"
+        },
+        "V12": {
+          "bsonType": "double"
+        },
+        "V13": {
+          "bsonType": "double"
+        },
+        "V14": {
+          "bsonType": "double"
+        },
+        "V15": {
+          "bsonType": "double"
+        },
+        "V16": {
+          "bsonType": "double"
+        },
+        "V17": {
+          "bsonType": "double"
+        },
+        "V18": {
+          "bsonType": "double"
+        },
+        "V19": {
+          "bsonType": "double"
+        },
+        "V20": {
+          "bsonType": "double"
+        },
+        "V21": {
+          "bsonType": "double"
+        },
+        "V22": {
+          "bsonType": "double"
+        },
+        "V23": {
+          "bsonType": "double"
+        },
+        "V24": {
+          "bsonType": "double"
+        },
+        "V25": {
+          "bsonType": "double"
+        },
+        "V26": {
+          "bsonType": "double"
+        },
+        "V27": {
+          "bsonType": "double"
+        },
+        "V28": {
+          "bsonType": "double"
+        }
+      }
+    }
+  }
+}

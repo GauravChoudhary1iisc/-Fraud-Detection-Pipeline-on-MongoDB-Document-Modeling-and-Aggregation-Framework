@@ -1,0 +1,52 @@
+== 01_baseline_pandas.py
+CSV: 284807 rows, fraud=492
+Pandas/CSV baseline:
+  DecisionTree  P=0.7526 R=0.7449 F1=0.7487
+  RandomForest  P=0.9412 R=0.8163 F1=0.8743
+== 02_load_mongo.py
+{'csv_rows': 284807, 'mongo_docs': 284807, 'fraud_docs': 492, 'roundtrip_identical_to_csv': True, 'data_size_bytes': 116770870, 'avg_doc_size_bytes': 410}
+== 03_explain_benchmark.py
+Without secondary indexes:
+  [before] find_amount_range                  {'plan': 'COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 2378, 'explain_ms': 137, 'median_wall_ms': 139.46}
+  [before] find_time_window                   {'plan': 'COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 8288, 'explain_ms': 49, 'median_wall_ms': 66.88}
+  [before] agg_amount_bins_high_value         {'plan': 'PROJECTION_SIMPLE <- COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 9492, 'explain_ms': 98, 'median_wall_ms': 95.48}
+  [before] agg_hourly_counts_first_6h         {'plan': 'PROJECTION_SIMPLE <- COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 12340, 'explain_ms': 51, 'median_wall_ms': 52.8}
+  [before] agg_class_amount_stats_gt_1000     {'plan': 'PROJECTION_SIMPLE <- COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 2940, 'explain_ms': 92, 'median_wall_ms': 81.09}
+  [before] agg_amount_bins_full_collection    {'plan': 'PROJECTION_SIMPLE <- COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 284807, 'explain_ms': 174, 'median_wall_ms': 171.7}
+Indexes: ['_id_', 'amount_class', 'time']
+With indexes:
+  [after] find_amount_range                  {'plan': 'FETCH <- IXSCAN', 'docs_examined': 2378, 'keys_examined': 2378, 'n_returned': 2378, 'explain_ms': 3, 'median_wall_ms': 6.38}
+  [after] find_time_window                   {'plan': 'FETCH <- IXSCAN', 'docs_examined': 8288, 'keys_examined': 8288, 'n_returned': 8288, 'explain_ms': 4, 'median_wall_ms': 19.89}
+  [after] agg_amount_bins_high_value         {'plan': 'PROJECTION_COVERED <- IXSCAN', 'docs_examined': 0, 'keys_examined': 9492, 'n_returned': 9492, 'explain_ms': 6, 'median_wall_ms': 6.27}
+  [after] agg_hourly_counts_first_6h         {'plan': 'PROJECTION_SIMPLE <- FETCH <- IXSCAN', 'docs_examined': 12340, 'keys_examined': 12340, 'n_returned': 12340, 'explain_ms': 11, 'median_wall_ms': 10.44}
+  [after] agg_class_amount_stats_gt_1000     {'plan': 'PROJECTION_COVERED <- IXSCAN', 'docs_examined': 0, 'keys_examined': 2940, 'n_returned': 2940, 'explain_ms': 1, 'median_wall_ms': 1.39}
+  [after] agg_amount_bins_full_collection    {'plan': 'PROJECTION_SIMPLE <- COLLSCAN', 'docs_examined': 284807, 'keys_examined': 0, 'n_returned': 284807, 'explain_ms': 182, 'median_wall_ms': 180.58}
+== 04_features_and_models.py
+Fraud rate by Amount bin:
+  _id     n  frauds  avg_amount  fraud_rate
+    0 16804      68    0.690182    0.004047
+    1 80510     181    4.332109    0.002248
+   10 92390      56   25.100793    0.000606
+   50 37718      57   71.847921    0.001511
+  100 34482      56  155.942089    0.001624
+  250 13411      39  343.399691    0.002908
+  500  6423      26  676.685905    0.004048
+ 1000  2620       9 1419.066427    0.003435
+ 2500   394       0 3305.267411    0.000000
+5000+    55       0 7710.556000    0.000000
+Mongo vs Pandas cross-checks: {'Amount_mean': True, 'Amount_std': True, 'V1_mean': True, 'V1_std': True, 'V14_mean': True, 'V14_std': True, 'hourly_counts': True, 'rolling_1h_count': True}
+Mongo-sourced, raw columns (same features as baseline):
+  DecisionTree  P=0.7526 R=0.7449 F1=0.7487
+  RandomForest  P=0.9412 R=0.8163 F1=0.8743
+Mongo-sourced, raw + aggregation-engineered features:
+  DecisionTree  P=0.6881 R=0.7653 F1=0.7246
+  RandomForest  P=0.9398 R=0.7959 F1=0.8619
+       model                   source  precision  recall     f1
+DecisionTree Original (user-reported)     0.8300  0.8100 0.8200
+DecisionTree       Pandas/CSV rebuild     0.7526  0.7449 0.7487
+DecisionTree        Mongo raw columns     0.7526  0.7449 0.7487
+DecisionTree       Mongo + engineered     0.6881  0.7653 0.7246
+RandomForest Original (user-reported)     0.9500  0.7600 0.8500
+RandomForest       Pandas/CSV rebuild     0.9412  0.8163 0.8743
+RandomForest        Mongo raw columns     0.9412  0.8163 0.8743
+RandomForest       Mongo + engineered     0.9398  0.7959 0.8619

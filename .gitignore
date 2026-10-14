@@ -1,0 +1,12 @@
+# Dataset (144 MB, over GitHub's 100 MB limit) - run_all.sh downloads it automatically
+data/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Editor / tooling
+.claude/
+.vscode/
+.ipynb_checkpoints/

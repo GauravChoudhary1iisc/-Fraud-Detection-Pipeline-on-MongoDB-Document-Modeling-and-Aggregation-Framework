@@ -1,0 +1,36 @@
+$ countDocuments
+total: 284807  fraud: 492
+$ getIndexes
+[
+  {
+    name: '_id_',
+    key: {
+      _id: 1
+    }
+  },
+  {
+    name: 'amount_class',
+    key: {
+      Amount: 1,
+      Class: 1
+    }
+  },
+  {
+    name: 'time',
+    key: {
+      Time: 1
+    }
+  }
+]
+
+$ explain("executionStats") amount_bins_ge_500
+  WITH index:      {"plan":"PROJECTION_COVERED <- IXSCAN","nReturned":9492,"totalDocsExamined":0,"totalKeysExamined":9492,"executionTimeMillis":6}
+  WITHOUT (forced COLLSCAN via hint $natural): {"plan":"PROJECTION_SIMPLE <- COLLSCAN","nReturned":9492,"totalDocsExamined":284807,"totalKeysExamined":0,"executionTimeMillis":98}
+
+$ explain("executionStats") hourly_first_6h
+  WITH index:      {"plan":"PROJECTION_SIMPLE <- FETCH <- IXSCAN","nReturned":12340,"totalDocsExamined":12340,"totalKeysExamined":12340,"executionTimeMillis":10}
+  WITHOUT (forced COLLSCAN via hint $natural): {"plan":"PROJECTION_SIMPLE <- COLLSCAN","nReturned":12340,"totalDocsExamined":284807,"totalKeysExamined":0,"executionTimeMillis":51}
+
+$ explain("executionStats") class_stats_gt_1000
+  WITH index:      {"plan":"PROJECTION_COVERED <- IXSCAN","nReturned":2940,"totalDocsExamined":0,"totalKeysExamined":2940,"executionTimeMillis":1}
+  WITHOUT (forced COLLSCAN via hint $natural): {"plan":"PROJECTION_SIMPLE <- COLLSCAN","nReturned":2940,"totalDocsExamined":284807,"totalKeysExamined":0,"executionTimeMillis":85}

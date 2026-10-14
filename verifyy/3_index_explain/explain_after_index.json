@@ -1,0 +1,1756 @@
+{
+  "find_amount_range": {
+    "explainVersion": "1",
+    "queryPlanner": {
+      "namespace": "fraud.transactions",
+      "indexFilterSet": false,
+      "parsedQuery": {
+        "$and": [
+          {
+            "Amount": {
+              "$lt": 2000
+            }
+          },
+          {
+            "Amount": {
+              "$gte": 1000
+            }
+          }
+        ]
+      },
+      "queryHash": "83644B2B",
+      "planCacheKey": "D2E1E2EC",
+      "optimizationTimeMillis": 0,
+      "maxIndexedOrSolutionsReached": false,
+      "maxIndexedAndSolutionsReached": false,
+      "maxScansToExplodeReached": false,
+      "winningPlan": {
+        "stage": "FETCH",
+        "inputStage": {
+          "stage": "IXSCAN",
+          "keyPattern": {
+            "Amount": 1,
+            "Class": 1
+          },
+          "indexName": "amount_class",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "Amount": [],
+            "Class": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "Amount": [
+              "[1000, 2000)"
+            ],
+            "Class": [
+              "[MinKey, MaxKey]"
+            ]
+          }
+        }
+      },
+      "rejectedPlans": []
+    },
+    "executionStats": {
+      "executionSuccess": true,
+      "nReturned": 2378,
+      "executionTimeMillis": 3,
+      "totalKeysExamined": 2378,
+      "totalDocsExamined": 2378,
+      "executionStages": {
+        "stage": "FETCH",
+        "nReturned": 2378,
+        "executionTimeMillisEstimate": 0,
+        "works": 2379,
+        "advanced": 2378,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 2,
+        "restoreState": 2,
+        "isEOF": 1,
+        "docsExamined": 2378,
+        "alreadyHasObj": 0,
+        "inputStage": {
+          "stage": "IXSCAN",
+          "nReturned": 2378,
+          "executionTimeMillisEstimate": 0,
+          "works": 2379,
+          "advanced": 2378,
+          "needTime": 0,
+          "needYield": 0,
+          "saveState": 2,
+          "restoreState": 2,
+          "isEOF": 1,
+          "keyPattern": {
+            "Amount": 1,
+            "Class": 1
+          },
+          "indexName": "amount_class",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "Amount": [],
+            "Class": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "Amount": [
+              "[1000, 2000)"
+            ],
+            "Class": [
+              "[MinKey, MaxKey]"
+            ]
+          },
+          "keysExamined": 2378,
+          "seeks": 1,
+          "dupsTested": 0,
+          "dupsDropped": 0
+        }
+      }
+    },
+    "command": {
+      "find": "transactions",
+      "filter": {
+        "Amount": {
+          "$gte": 1000,
+          "$lt": 2000
+        }
+      },
+      "$db": "fraud"
+    },
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "ok": 1.0
+  },
+  "find_time_window": {
+    "explainVersion": "1",
+    "queryPlanner": {
+      "namespace": "fraud.transactions",
+      "indexFilterSet": false,
+      "parsedQuery": {
+        "$and": [
+          {
+            "Time": {
+              "$lt": 39600
+            }
+          },
+          {
+            "Time": {
+              "$gte": 36000
+            }
+          }
+        ]
+      },
+      "queryHash": "B253976F",
+      "planCacheKey": "DE964F56",
+      "optimizationTimeMillis": 0,
+      "maxIndexedOrSolutionsReached": false,
+      "maxIndexedAndSolutionsReached": false,
+      "maxScansToExplodeReached": false,
+      "winningPlan": {
+        "stage": "FETCH",
+        "inputStage": {
+          "stage": "IXSCAN",
+          "keyPattern": {
+            "Time": 1
+          },
+          "indexName": "time",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "Time": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "Time": [
+              "[36000, 39600)"
+            ]
+          }
+        }
+      },
+      "rejectedPlans": []
+    },
+    "executionStats": {
+      "executionSuccess": true,
+      "nReturned": 8288,
+      "executionTimeMillis": 4,
+      "totalKeysExamined": 8288,
+      "totalDocsExamined": 8288,
+      "executionStages": {
+        "stage": "FETCH",
+        "nReturned": 8288,
+        "executionTimeMillisEstimate": 0,
+        "works": 8289,
+        "advanced": 8288,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 8,
+        "restoreState": 8,
+        "isEOF": 1,
+        "docsExamined": 8288,
+        "alreadyHasObj": 0,
+        "inputStage": {
+          "stage": "IXSCAN",
+          "nReturned": 8288,
+          "executionTimeMillisEstimate": 0,
+          "works": 8289,
+          "advanced": 8288,
+          "needTime": 0,
+          "needYield": 0,
+          "saveState": 8,
+          "restoreState": 8,
+          "isEOF": 1,
+          "keyPattern": {
+            "Time": 1
+          },
+          "indexName": "time",
+          "isMultiKey": false,
+          "multiKeyPaths": {
+            "Time": []
+          },
+          "isUnique": false,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "Time": [
+              "[36000, 39600)"
+            ]
+          },
+          "keysExamined": 8288,
+          "seeks": 1,
+          "dupsTested": 0,
+          "dupsDropped": 0
+        }
+      }
+    },
+    "command": {
+      "find": "transactions",
+      "filter": {
+        "Time": {
+          "$gte": 36000,
+          "$lt": 39600
+        }
+      },
+      "$db": "fraud"
+    },
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "ok": 1.0
+  },
+  "agg_amount_bins_high_value": {
+    "explainVersion": "1",
+    "stages": [
+      {
+        "$cursor": {
+          "queryPlanner": {
+            "namespace": "fraud.transactions",
+            "indexFilterSet": false,
+            "parsedQuery": {
+              "Amount": {
+                "$gte": 500
+              }
+            },
+            "queryHash": "C0619767",
+            "planCacheKey": "D9A2541B",
+            "optimizationTimeMillis": 0,
+            "maxIndexedOrSolutionsReached": false,
+            "maxIndexedAndSolutionsReached": false,
+            "maxScansToExplodeReached": false,
+            "winningPlan": {
+              "stage": "PROJECTION_COVERED",
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                  "Amount": 1,
+                  "Class": 1
+                },
+                "indexName": "amount_class",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "Amount": [],
+                  "Class": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "Amount": [
+                    "[500, inf.0]"
+                  ],
+                  "Class": [
+                    "[MinKey, MaxKey]"
+                  ]
+                }
+              }
+            },
+            "rejectedPlans": []
+          },
+          "executionStats": {
+            "executionSuccess": true,
+            "nReturned": 9492,
+            "executionTimeMillis": 6,
+            "totalKeysExamined": 9492,
+            "totalDocsExamined": 0,
+            "executionStages": {
+              "stage": "PROJECTION_COVERED",
+              "nReturned": 9492,
+              "executionTimeMillisEstimate": 1,
+              "works": 9493,
+              "advanced": 9492,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 10,
+              "restoreState": 10,
+              "isEOF": 1,
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 9492,
+                "executionTimeMillisEstimate": 1,
+                "works": 9493,
+                "advanced": 9492,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 10,
+                "restoreState": 10,
+                "isEOF": 1,
+                "keyPattern": {
+                  "Amount": 1,
+                  "Class": 1
+                },
+                "indexName": "amount_class",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "Amount": [],
+                  "Class": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "Amount": [
+                    "[500, inf.0]"
+                  ],
+                  "Class": [
+                    "[MinKey, MaxKey]"
+                  ]
+                },
+                "keysExamined": 9492,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+              }
+            }
+          }
+        },
+        "nReturned": 9492,
+        "executionTimeMillisEstimate": 2
+      },
+      {
+        "$group": {
+          "_id": {
+            "$switch": {
+              "branches": [
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 0
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 0
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 1
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 10
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 1
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 10
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 50
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 10
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 50
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 100
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 50
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 100
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 250
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 100
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 250
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 500
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 250
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 500
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 1000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 500
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 1000
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 2500
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 1000
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 2500
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 5000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 2500
+                  }
+                }
+              ],
+              "default": {
+                "$const": "5000+"
+              }
+            }
+          },
+          "n": {
+            "$sum": {
+              "$const": 1
+            }
+          },
+          "frauds": {
+            "$sum": "$Class"
+          },
+          "avg_amount": {
+            "$avg": "$Amount"
+          }
+        },
+        "maxAccumulatorMemoryUsageBytes": {
+          "n": 384,
+          "frauds": 384,
+          "avg_amount": 416
+        },
+        "totalOutputDataSizeBytes": 1236,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "numBytesSpilledEstimate": 0,
+        "spilledRecords": 0,
+        "nReturned": 4,
+        "executionTimeMillisEstimate": 2
+      },
+      {
+        "$sort": {
+          "sortKey": {
+            "_id": 1
+          }
+        },
+        "totalDataSizeSortedBytesEstimate": 1268,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "nReturned": 4,
+        "executionTimeMillisEstimate": 2
+      },
+      {
+        "$addFields": {
+          "fraud_rate": {
+            "$divide": [
+              "$frauds",
+              "$n"
+            ]
+          }
+        },
+        "nReturned": 4,
+        "executionTimeMillisEstimate": 2
+      }
+    ],
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "command": {
+      "aggregate": "transactions",
+      "pipeline": [
+        {
+          "$match": {
+            "Amount": {
+              "$gte": 500
+            }
+          }
+        },
+        {
+          "$bucket": {
+            "groupBy": "$Amount",
+            "boundaries": [
+              0,
+              1,
+              10,
+              50,
+              100,
+              250,
+              500,
+              1000,
+              2500,
+              5000
+            ],
+            "default": "5000+",
+            "output": {
+              "n": {
+                "$sum": 1
+              },
+              "frauds": {
+                "$sum": "$Class"
+              },
+              "avg_amount": {
+                "$avg": "$Amount"
+              }
+            }
+          }
+        },
+        {
+          "$addFields": {
+            "fraud_rate": {
+              "$divide": [
+                "$frauds",
+                "$n"
+              ]
+            }
+          }
+        }
+      ],
+      "cursor": {},
+      "$db": "fraud"
+    },
+    "ok": 1.0
+  },
+  "agg_hourly_counts_first_6h": {
+    "explainVersion": "1",
+    "stages": [
+      {
+        "$cursor": {
+          "queryPlanner": {
+            "namespace": "fraud.transactions",
+            "indexFilterSet": false,
+            "parsedQuery": {
+              "Time": {
+                "$lt": 21600
+              }
+            },
+            "queryHash": "A7644292",
+            "planCacheKey": "439D1F0A",
+            "optimizationTimeMillis": 0,
+            "maxIndexedOrSolutionsReached": false,
+            "maxIndexedAndSolutionsReached": false,
+            "maxScansToExplodeReached": false,
+            "winningPlan": {
+              "stage": "PROJECTION_SIMPLE",
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "Time": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "FETCH",
+                "inputStage": {
+                  "stage": "IXSCAN",
+                  "keyPattern": {
+                    "Time": 1
+                  },
+                  "indexName": "time",
+                  "isMultiKey": false,
+                  "multiKeyPaths": {
+                    "Time": []
+                  },
+                  "isUnique": false,
+                  "isSparse": false,
+                  "isPartial": false,
+                  "indexVersion": 2,
+                  "direction": "forward",
+                  "indexBounds": {
+                    "Time": [
+                      "[-inf.0, 21600)"
+                    ]
+                  }
+                }
+              }
+            },
+            "rejectedPlans": []
+          },
+          "executionStats": {
+            "executionSuccess": true,
+            "nReturned": 12340,
+            "executionTimeMillis": 11,
+            "totalKeysExamined": 12340,
+            "totalDocsExamined": 12340,
+            "executionStages": {
+              "stage": "PROJECTION_SIMPLE",
+              "nReturned": 12340,
+              "executionTimeMillisEstimate": 1,
+              "works": 12341,
+              "advanced": 12340,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 13,
+              "restoreState": 13,
+              "isEOF": 1,
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "Time": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "FETCH",
+                "nReturned": 12340,
+                "executionTimeMillisEstimate": 0,
+                "works": 12341,
+                "advanced": 12340,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 13,
+                "restoreState": 13,
+                "isEOF": 1,
+                "docsExamined": 12340,
+                "alreadyHasObj": 0,
+                "inputStage": {
+                  "stage": "IXSCAN",
+                  "nReturned": 12340,
+                  "executionTimeMillisEstimate": 0,
+                  "works": 12341,
+                  "advanced": 12340,
+                  "needTime": 0,
+                  "needYield": 0,
+                  "saveState": 13,
+                  "restoreState": 13,
+                  "isEOF": 1,
+                  "keyPattern": {
+                    "Time": 1
+                  },
+                  "indexName": "time",
+                  "isMultiKey": false,
+                  "multiKeyPaths": {
+                    "Time": []
+                  },
+                  "isUnique": false,
+                  "isSparse": false,
+                  "isPartial": false,
+                  "indexVersion": 2,
+                  "direction": "forward",
+                  "indexBounds": {
+                    "Time": [
+                      "[-inf.0, 21600)"
+                    ]
+                  },
+                  "keysExamined": 12340,
+                  "seeks": 1,
+                  "dupsTested": 0,
+                  "dupsDropped": 0
+                }
+              }
+            }
+          }
+        },
+        "nReturned": 12340,
+        "executionTimeMillisEstimate": 8
+      },
+      {
+        "$group": {
+          "_id": {
+            "$floor": [
+              {
+                "$divide": [
+                  "$Time",
+                  {
+                    "$const": 3600
+                  }
+                ]
+              }
+            ]
+          },
+          "n": {
+            "$sum": {
+              "$const": 1
+            }
+          },
+          "frauds": {
+            "$sum": "$Class"
+          },
+          "total_amount": {
+            "$sum": "$Amount"
+          }
+        },
+        "maxAccumulatorMemoryUsageBytes": {
+          "n": 576,
+          "frauds": 576,
+          "total_amount": 576
+        },
+        "totalOutputDataSizeBytes": 1854,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "numBytesSpilledEstimate": 0,
+        "spilledRecords": 0,
+        "nReturned": 6,
+        "executionTimeMillisEstimate": 8
+      },
+      {
+        "$sort": {
+          "sortKey": {
+            "_id": 1
+          }
+        },
+        "totalDataSizeSortedBytesEstimate": 1902,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "nReturned": 6,
+        "executionTimeMillisEstimate": 8
+      },
+      {
+        "$_internalSetWindowFields": {
+          "sortBy": {
+            "_id": 1
+          },
+          "output": {
+            "rolling_3h_n": {
+              "$sum": "$n",
+              "window": {
+                "documents": [
+                  -2,
+                  0
+                ]
+              }
+            },
+            "rolling_3h_frauds": {
+              "$sum": "$frauds",
+              "window": {
+                "documents": [
+                  -2,
+                  0
+                ]
+              }
+            }
+          }
+        },
+        "maxFunctionMemoryUsageBytes": {
+          "rolling_3h_n": 232,
+          "rolling_3h_frauds": 232
+        },
+        "maxTotalMemoryUsageBytes": 1050,
+        "usedDisk": false,
+        "nReturned": 6,
+        "executionTimeMillisEstimate": 8
+      },
+      {
+        "$project": {
+          "n": true,
+          "frauds": true,
+          "rolling_3h_n": true,
+          "rolling_3h_frauds": true,
+          "hour_index": "$_id",
+          "hour_of_day": {
+            "$mod": [
+              "$_id",
+              {
+                "$const": 24
+              }
+            ]
+          },
+          "total_amount": {
+            "$round": [
+              "$total_amount",
+              {
+                "$const": 2
+              }
+            ]
+          },
+          "_id": false
+        },
+        "nReturned": 6,
+        "executionTimeMillisEstimate": 8
+      }
+    ],
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "command": {
+      "aggregate": "transactions",
+      "pipeline": [
+        {
+          "$match": {
+            "Time": {
+              "$lt": 21600
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": {
+              "$floor": {
+                "$divide": [
+                  "$Time",
+                  3600
+                ]
+              }
+            },
+            "n": {
+              "$sum": 1
+            },
+            "frauds": {
+              "$sum": "$Class"
+            },
+            "total_amount": {
+              "$sum": "$Amount"
+            }
+          }
+        },
+        {
+          "$setWindowFields": {
+            "sortBy": {
+              "_id": 1
+            },
+            "output": {
+              "rolling_3h_n": {
+                "$sum": "$n",
+                "window": {
+                  "documents": [
+                    -2,
+                    0
+                  ]
+                }
+              },
+              "rolling_3h_frauds": {
+                "$sum": "$frauds",
+                "window": {
+                  "documents": [
+                    -2,
+                    0
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "hour_index": "$_id",
+            "hour_of_day": {
+              "$mod": [
+                "$_id",
+                24
+              ]
+            },
+            "n": 1,
+            "frauds": 1,
+            "total_amount": {
+              "$round": [
+                "$total_amount",
+                2
+              ]
+            },
+            "rolling_3h_n": 1,
+            "rolling_3h_frauds": 1
+          }
+        }
+      ],
+      "cursor": {},
+      "$db": "fraud"
+    },
+    "ok": 1.0
+  },
+  "agg_class_amount_stats_gt_1000": {
+    "explainVersion": "1",
+    "stages": [
+      {
+        "$cursor": {
+          "queryPlanner": {
+            "namespace": "fraud.transactions",
+            "indexFilterSet": false,
+            "parsedQuery": {
+              "Amount": {
+                "$gt": 1000
+              }
+            },
+            "queryHash": "67FAD6EF",
+            "planCacheKey": "7D24D08D",
+            "optimizationTimeMillis": 0,
+            "maxIndexedOrSolutionsReached": false,
+            "maxIndexedAndSolutionsReached": false,
+            "maxScansToExplodeReached": false,
+            "winningPlan": {
+              "stage": "PROJECTION_COVERED",
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                  "Amount": 1,
+                  "Class": 1
+                },
+                "indexName": "amount_class",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "Amount": [],
+                  "Class": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "Amount": [
+                    "(1000, inf.0]"
+                  ],
+                  "Class": [
+                    "[MinKey, MaxKey]"
+                  ]
+                }
+              }
+            },
+            "rejectedPlans": []
+          },
+          "executionStats": {
+            "executionSuccess": true,
+            "nReturned": 2940,
+            "executionTimeMillis": 1,
+            "totalKeysExamined": 2940,
+            "totalDocsExamined": 0,
+            "executionStages": {
+              "stage": "PROJECTION_COVERED",
+              "nReturned": 2940,
+              "executionTimeMillisEstimate": 0,
+              "works": 2941,
+              "advanced": 2940,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 3,
+              "restoreState": 3,
+              "isEOF": 1,
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 2940,
+                "executionTimeMillisEstimate": 0,
+                "works": 2941,
+                "advanced": 2940,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 3,
+                "restoreState": 3,
+                "isEOF": 1,
+                "keyPattern": {
+                  "Amount": 1,
+                  "Class": 1
+                },
+                "indexName": "amount_class",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "Amount": [],
+                  "Class": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "Amount": [
+                    "(1000, inf.0]"
+                  ],
+                  "Class": [
+                    "[MinKey, MaxKey]"
+                  ]
+                },
+                "keysExamined": 2940,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+              }
+            }
+          }
+        },
+        "nReturned": 2940,
+        "executionTimeMillisEstimate": 0
+      },
+      {
+        "$group": {
+          "_id": "$Class",
+          "n": {
+            "$sum": {
+              "$const": 1
+            }
+          },
+          "Amount_mean": {
+            "$avg": "$Amount"
+          },
+          "Amount_std": {
+            "$stdDevSamp": "$Amount"
+          }
+        },
+        "maxAccumulatorMemoryUsageBytes": {
+          "n": 192,
+          "Amount_mean": 208,
+          "Amount_std": 160
+        },
+        "totalOutputDataSizeBytes": 618,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "numBytesSpilledEstimate": 0,
+        "spilledRecords": 0,
+        "nReturned": 2,
+        "executionTimeMillisEstimate": 0
+      },
+      {
+        "$sort": {
+          "sortKey": {
+            "_id": 1
+          }
+        },
+        "totalDataSizeSortedBytesEstimate": 634,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "nReturned": 2,
+        "executionTimeMillisEstimate": 0
+      }
+    ],
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "command": {
+      "aggregate": "transactions",
+      "pipeline": [
+        {
+          "$match": {
+            "Amount": {
+              "$gt": 1000
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": "$Class",
+            "n": {
+              "$sum": 1
+            },
+            "Amount_mean": {
+              "$avg": "$Amount"
+            },
+            "Amount_std": {
+              "$stdDevSamp": "$Amount"
+            }
+          }
+        },
+        {
+          "$sort": {
+            "_id": 1
+          }
+        }
+      ],
+      "cursor": {},
+      "$db": "fraud"
+    },
+    "ok": 1.0
+  },
+  "agg_amount_bins_full_collection": {
+    "explainVersion": "1",
+    "stages": [
+      {
+        "$cursor": {
+          "queryPlanner": {
+            "namespace": "fraud.transactions",
+            "indexFilterSet": false,
+            "parsedQuery": {},
+            "queryHash": "AD69191E",
+            "planCacheKey": "AD69191E",
+            "optimizationTimeMillis": 0,
+            "maxIndexedOrSolutionsReached": false,
+            "maxIndexedAndSolutionsReached": false,
+            "maxScansToExplodeReached": false,
+            "winningPlan": {
+              "stage": "PROJECTION_SIMPLE",
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "COLLSCAN",
+                "direction": "forward"
+              }
+            },
+            "rejectedPlans": []
+          },
+          "executionStats": {
+            "executionSuccess": true,
+            "nReturned": 284807,
+            "executionTimeMillis": 182,
+            "totalKeysExamined": 0,
+            "totalDocsExamined": 284807,
+            "executionStages": {
+              "stage": "PROJECTION_SIMPLE",
+              "nReturned": 284807,
+              "executionTimeMillisEstimate": 8,
+              "works": 284808,
+              "advanced": 284807,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 294,
+              "restoreState": 294,
+              "isEOF": 1,
+              "transformBy": {
+                "Amount": 1,
+                "Class": 1,
+                "_id": 0
+              },
+              "inputStage": {
+                "stage": "COLLSCAN",
+                "nReturned": 284807,
+                "executionTimeMillisEstimate": 5,
+                "works": 284808,
+                "advanced": 284807,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 294,
+                "restoreState": 294,
+                "isEOF": 1,
+                "direction": "forward",
+                "docsExamined": 284807
+              }
+            }
+          }
+        },
+        "nReturned": 284807,
+        "executionTimeMillisEstimate": 143
+      },
+      {
+        "$group": {
+          "_id": {
+            "$switch": {
+              "branches": [
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 0
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 0
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 1
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 10
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 1
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 10
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 50
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 10
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 50
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 100
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 50
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 100
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 250
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 100
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 250
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 500
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 250
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 500
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 1000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 500
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 1000
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 2500
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 1000
+                  }
+                },
+                {
+                  "case": {
+                    "$and": [
+                      {
+                        "$gte": [
+                          "$Amount",
+                          {
+                            "$const": 2500
+                          }
+                        ]
+                      },
+                      {
+                        "$lt": [
+                          "$Amount",
+                          {
+                            "$const": 5000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "then": {
+                    "$const": 2500
+                  }
+                }
+              ],
+              "default": {
+                "$const": "5000+"
+              }
+            }
+          },
+          "n": {
+            "$sum": {
+              "$const": 1
+            }
+          },
+          "frauds": {
+            "$sum": "$Class"
+          },
+          "avg_amount": {
+            "$avg": "$Amount"
+          }
+        },
+        "maxAccumulatorMemoryUsageBytes": {
+          "n": 960,
+          "frauds": 960,
+          "avg_amount": 1040
+        },
+        "totalOutputDataSizeBytes": 3090,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "numBytesSpilledEstimate": 0,
+        "spilledRecords": 0,
+        "nReturned": 10,
+        "executionTimeMillisEstimate": 177
+      },
+      {
+        "$sort": {
+          "sortKey": {
+            "_id": 1
+          }
+        },
+        "totalDataSizeSortedBytesEstimate": 3170,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledDataStorageSize": 0,
+        "nReturned": 10,
+        "executionTimeMillisEstimate": 177
+      },
+      {
+        "$addFields": {
+          "fraud_rate": {
+            "$divide": [
+              "$frauds",
+              "$n"
+            ]
+          }
+        },
+        "nReturned": 10,
+        "executionTimeMillisEstimate": 177
+      }
+    ],
+    "serverInfo": {
+      "host": "71e68ba303f0",
+      "port": 27017,
+      "version": "7.0.43",
+      "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+    },
+    "serverParameters": {
+      "internalQueryFacetBufferSizeBytes": 104857600,
+      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+      "internalQueryProhibitBlockingMergeOnMongoS": 0,
+      "internalQueryMaxAddToSetBytes": 104857600,
+      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+      "internalQueryFrameworkControl": "forceClassicEngine"
+    },
+    "command": {
+      "aggregate": "transactions",
+      "pipeline": [
+        {
+          "$bucket": {
+            "groupBy": "$Amount",
+            "boundaries": [
+              0,
+              1,
+              10,
+              50,
+              100,
+              250,
+              500,
+              1000,
+              2500,
+              5000
+            ],
+            "default": "5000+",
+            "output": {
+              "n": {
+                "$sum": 1
+              },
+              "frauds": {
+                "$sum": "$Class"
+              },
+              "avg_amount": {
+                "$avg": "$Amount"
+              }
+            }
+          }
+        },
+        {
+          "$addFields": {
+            "fraud_rate": {
+              "$divide": [
+                "$frauds",
+                "$n"
+              ]
+            }
+          }
+        }
+      ],
+      "cursor": {},
+      "$db": "fraud"
+    },
+    "ok": 1.0
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "indexes": [
+    {
+      "name": "amount_class",
+      "keys": [
+        [
+          "Amount",
+          1
+        ],
+        [
+          "Class",
+          1
+        ]
+      ]
+    },
+    {
+      "name": "time",
+      "keys": [
+        [
+          "Time",
+          1
+        ]
+      ]
+    }
+  ],
+  "workloads": {
+    "find_amount_range": {
+      "kind": "find",
+      "spec": {
+        "Amount": {
+          "$gte": 1000,
+          "$lt": 2000
+        }
+      }
+    },
+    "find_time_window": {
+      "kind": "find",
+      "spec": {
+        "Time": {
+          "$gte": 36000,
+          "$lt": 39600
+        }
+      }
+    },
+    "agg_amount_bins_high_value": {
+      "kind": "agg",
+      "spec": [
+        {
+          "$match": {
+            "Amount": {
+              "$gte": 500
+            }
+          }
+        },
+        {
+          "$bucket": {
+            "groupBy": "$Amount",
+            "boundaries": [
+              0,
+              1,
+              10,
+              50,
+              100,
+              250,
+              500,
+              1000,
+              2500,
+              5000
+            ],
+            "default": "5000+",
+            "output": {
+              "n": {
+                "$sum": 1
+              },
+              "frauds": {
+                "$sum": "$Class"
+              },
+              "avg_amount": {
+                "$avg": "$Amount"
+              }
+            }
+          }
+        },
+        {
+          "$addFields": {
+            "fraud_rate": {
+              "$divide": [
+                "$frauds",
+                "$n"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "agg_hourly_counts_first_6h": {
+      "kind": "agg",
+      "spec": [
+        {
+          "$match": {
+            "Time": {
+              "$lt": 21600
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": {
+              "$floor": {
+                "$divide": [
+                  "$Time",
+                  3600
+                ]
+              }
+            },
+            "n": {
+              "$sum": 1
+            },
+            "frauds": {
+              "$sum": "$Class"
+            },
+            "total_amount": {
+              "$sum": "$Amount"
+            }
+          }
+        },
+        {
+          "$setWindowFields": {
+            "sortBy": {
+              "_id": 1
+            },
+            "output": {
+              "rolling_3h_n": {
+                "$sum": "$n",
+                "window": {
+                  "documents": [
+                    -2,
+                    0
+                  ]
+                }
+              },
+              "rolling_3h_frauds": {
+                "$sum": "$frauds",
+                "window": {
+                  "documents": [
+                    -2,
+                    0
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "hour_index": "$_id",
+            "hour_of_day": {
+              "$mod": [
+                "$_id",
+                24
+              ]
+            },
+            "n": 1,
+            "frauds": 1,
+            "total_amount": {
+              "$round": [
+                "$total_amount",
+                2
+              ]
+            },
+            "rolling_3h_n": 1,
+            "rolling_3h_frauds": 1
+          }
+        }
+      ]
+    },
+    "agg_class_amount_stats_gt_1000": {
+      "kind": "agg",
+      "spec": [
+        {
+          "$match": {
+            "Amount": {
+              "$gt": 1000
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": "$Class",
+            "n": {
+              "$sum": 1
+            },
+            "Amount_mean": {
+              "$avg": "$Amount"
+            },
+            "Amount_std": {
+              "$stdDevSamp": "$Amount"
+            }
+          }
+        },
+        {
+          "$sort": {
+            "_id": 1
+          }
+        }
+      ]
+    },
+    "agg_amount_bins_full_collection": {
+      "kind": "agg",
+      "spec": [
+        {
+          "$bucket": {
+            "groupBy": "$Amount",
+            "boundaries": [
+              0,
+              1,
+              10,
+              50,
+              100,
+              250,
+              500,
+              1000,
+              2500,
+              5000
+            ],
+            "default": "5000+",
+            "output": {
+              "n": {
+                "$sum": 1
+              },
+              "frauds": {
+                "$sum": "$Class"
+              },
+              "avg_amount": {
+                "$avg": "$Amount"
+              }
+            }
+          }
+        },
+        {
+          "$addFields": {
+            "fraud_rate": {
+              "$divide": [
+                "$frauds",
+                "$n"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "before": {
+    "find_amount_range": {
+      "plan": "COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 2378,
+      "explain_ms": 137,
+      "median_wall_ms": 139.46
+    },
+    "find_time_window": {
+      "plan": "COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 8288,
+      "explain_ms": 49,
+      "median_wall_ms": 66.88
+    },
+    "agg_amount_bins_high_value": {
+      "plan": "PROJECTION_SIMPLE <- COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 9492,
+      "explain_ms": 98,
+      "median_wall_ms": 95.48
+    },
+    "agg_hourly_counts_first_6h": {
+      "plan": "PROJECTION_SIMPLE <- COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 12340,
+      "explain_ms": 51,
+      "median_wall_ms": 52.8
+    },
+    "agg_class_amount_stats_gt_1000": {
+      "plan": "PROJECTION_SIMPLE <- COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 2940,
+      "explain_ms": 92,
+      "median_wall_ms": 81.09
+    },
+    "agg_amount_bins_full_collection": {
+      "plan": "PROJECTION_SIMPLE <- COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 284807,
+      "explain_ms": 174,
+      "median_wall_ms": 171.7
+    }
+  },
+  "after": {
+    "find_amount_range": {
+      "plan": "FETCH <- IXSCAN",
+      "docs_examined": 2378,
+      "keys_examined": 2378,
+      "n_returned": 2378,
+      "explain_ms": 3,
+      "median_wall_ms": 6.38
+    },
+    "find_time_window": {
+      "plan": "FETCH <- IXSCAN",
+      "docs_examined": 8288,
+      "keys_examined": 8288,
+      "n_returned": 8288,
+      "explain_ms": 4,
+      "median_wall_ms": 19.89
+    },
+    "agg_amount_bins_high_value": {
+      "plan": "PROJECTION_COVERED <- IXSCAN",
+      "docs_examined": 0,
+      "keys_examined": 9492,
+      "n_returned": 9492,
+      "explain_ms": 6,
+      "median_wall_ms": 6.27
+    },
+    "agg_hourly_counts_first_6h": {
+      "plan": "PROJECTION_SIMPLE <- FETCH <- IXSCAN",
+      "docs_examined": 12340,
+      "keys_examined": 12340,
+      "n_returned": 12340,
+      "explain_ms": 11,
+      "median_wall_ms": 10.44
+    },
+    "agg_class_amount_stats_gt_1000": {
+      "plan": "PROJECTION_COVERED <- IXSCAN",
+      "docs_examined": 0,
+      "keys_examined": 2940,
+      "n_returned": 2940,
+      "explain_ms": 1,
+      "median_wall_ms": 1.39
+    },
+    "agg_amount_bins_full_collection": {
+      "plan": "PROJECTION_SIMPLE <- COLLSCAN",
+      "docs_examined": 284807,
+      "keys_examined": 0,
+      "n_returned": 284807,
+      "explain_ms": 182,
+      "median_wall_ms": 180.58
+    }
+  }
+}
